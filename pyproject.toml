@@ -3,7 +3,7 @@ requires = ["flit"]
 build-backend = "flit.buildapi"
 
 [project]
-name =  "py-project-toml"
+name =  "py-gel"
 authors = [
     {name = "Daniel Ciborowski", email = "dciborow@microsoft.com"},
 ]
@@ -21,11 +21,22 @@ classifiers = [
 ]
 requires-python = ">=3.7"
 dynamic = ["version"]
+dependencies = [
+  'ray[air] >= 2.4.0',
+  'hydra-core >= 1.3.0',
+  'torch >= 2.0.0'
+]
 
 [project.optional-dependencies]
-spark = [
-    "pyspark>=3.0.0"
+lightning = [
+    'pytorch-lightning >= 1.8.6'
 ]
+pyg = [
+    'pyg-lib >= 0.2.0',
+    'torch-geometric >= 2.3.0',
+    'yacs>=0.1.8'
+]
+
 test = [
     "bandit[toml]==1.7.5",
     "black==23.3.0",
@@ -46,13 +57,16 @@ test = [
     "shellcheck-py==0.9.0.2"
 ]
 
+[project.scripts]
+gel = "gel.cli.__main__:main"
+
 [project.urls]
 Documentation = "https://github.com/microsoft/python-package-template/tree/main#readme"
 Source = "https://github.com/microsoft/python-package-template"
 Tracker = "https://github.com/microsoft/python-package-template/issues"
 
 [tool.flit.module]
-name = "python_package"
+name = "gel"
 
 [tool.bandit]
 exclude_dirs = ["build","dist","tests","scripts"]

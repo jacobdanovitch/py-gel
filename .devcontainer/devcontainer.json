@@ -1,11 +1,17 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.222.0/containers/python-3-miniconda
 {
-	"name": "Python Environment",
+	"name": "py-gel",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": ".."
 	},
+	"runArgs": [
+		"--shm-size",
+		"4gb",
+		"--gpus",
+		"all" // https://stackoverflow.com/a/73214962/6766123
+	],
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -21,7 +27,8 @@
 				"ms-vsliveshare.vsliveshare",
 				"ryanluker.vscode-coverage-gutters",
 				"bungcip.better-toml",
-				"GitHub.copilot"
+				"GitHub.copilot",
+				"redhat.vscode-yaml"
 			],
 			"settings": {
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
@@ -38,6 +45,14 @@
 					"/usr/local/py-utils/bin/isort"
 				]
 			}
+		}
+	},
+	"features": {
+		"ghcr.io/stuartleeks/dev-container-features/shell-history:0": {},
+		"ghcr.io/devcontainers/features/common-utils:2": {},
+		"ghcr.io/devcontainers/features/nvidia-cuda:1": {
+			"installCudnn": true,
+			"cudaVersion": "11.8"
 		}
 	},
 	"onCreateCommand": "pre-commit install-hooks"

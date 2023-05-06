@@ -1,0 +1,18 @@
+from typing import Any
+
+from omegaconf import DictConfig
+
+import hydra
+
+
+def add(app_cfg: DictConfig, key1: str, key2: str) -> Any:
+    num1 = app_cfg[key1]
+    num2 = app_cfg[key2]
+    ret = num1 + num2
+    print(f"Hello {app_cfg.user}, {num1} + {num2} = {ret}")
+    return ret
+
+
+@hydra.main(version_base=None, config_path=None) # "conf", config_name="config"
+def main(cfg: DictConfig) -> None:
+    add(cfg.app, "num1", "num2")
